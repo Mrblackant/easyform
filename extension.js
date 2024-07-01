@@ -1,36 +1,57 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-const vscode = require('vscode');
+const vscode = require("vscode");
+const fs = require("fs");
+const path = require("path");
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-
-/**
- * @param {vscode.ExtensionContext} context
- */
 function activate(context) {
+  const hoverProvider = vscode.languages.registerHoverProvider(
+    { scheme: "file", language: "javascript" },
+    {
+      provideHover(document, position, token) {
+        const line = document.lineAt(position.line);
+        const regex = /\/api/;
+        console.log("dadafa-----");
+        const match = line.text.match(regex);
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "realproxyaddress" is now active!');
+        if (match) {
+          const workspaceFolder =
+            vscode.workspace.workspaceFolders[0].uri.fsPath;
+          const configPath = path.join(workspaceFolder, "vue.config.js");
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('realproxyaddress.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
+          if (!fs.existsSync(configPath)) {
+            return null;
+          }
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from realProxyAddress!');
-	});
+          const config = require(configPath);
+          const proxyConfig = config.devServer.proxy["/api"];
+          const target = proxyConfig.target || "";
+          const pathRewrite = proxyConfig.pathRewrite || {};
+          let newPath = line.text;
 
-	context.subscriptions.push(disposable);
+          for (const [key, value] of Object.entries(pathRewrite)) {
+            newPath = newPath.replace(new RegExp(key), value);
+          }
+
+          const fullUrl = `${target}${newPath}`;
+
+          const hoverMessage = new vscode.MarkdownString(
+            `**完整请求地址:** ${fullUrl}`
+          );
+          hoverMessage.isTrusted = true;
+
+          return new vscode.Hover(hoverMessage);
+        }
+
+        return null;
+      },
+    }
+  );
+
+  context.subscriptions.push(hoverProvider);
 }
 
-// This method is called when your extension is deactivated
 function deactivate() {}
 
 module.exports = {
-	activate,
-	deactivate
-}
+  activate,
+  deactivate,
+};
