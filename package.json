@@ -1,41 +1,38 @@
 {
-  "name": "realproxyaddress",
-  "displayName": "realProxyAddress",
-  "description": "展示Vue代理后的实际地址",
+  "name": "vue-proxy-helper",
+  "displayName": "Vue Proxy Helper",
+  "description": "A VSCode extension to help with Vue proxy configuration.",
   "version": "0.0.1",
+  "publisher": "your-name",
   "engines": {
-    "vscode": "^1.60.0"
+    "vscode": "^1.50.0"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:javascript"
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact"
   ],
   "main": "./extension.js",
   "contributes": {
-    "languages": [
-      {
-        "id": "javascript",
-        "extensions": [
-          ".js"
-        ]
-      }
-    ]
+    "commands": []
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "node ./node_modules/vscode/bin/compile",
-    "watch": "node ./node_modules/vscode/bin/compile -watch -p ./",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext js",
+    "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/node": "^16.0.0",
-    "@types/vscode": "^1.60.0",
-    "eslint": "^7.32.0",
-    "typescript": "^4.4.0",
-    "vscode-test": "^1.6.1"
+    "@types/node": "^14.14.6",
+    "@types/vscode": "^1.50.0",
+    "eslint": "^7.14.0",
+    "typescript": "^4.0.3",
+    "vscode-test": "^1.4.0"
   }
 }

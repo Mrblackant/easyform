@@ -55,27 +55,18 @@ function activate(context) {
       }
 
       if (completeUrl) {
-        // 查找每项配置的 key 的位置
-        let keyPosition = null;
+        // 查找每项配置的 target 属性的位置
         for (let i = 0; i < document.lineCount; i++) {
           const line = document.lineAt(i);
-          if (line.text.includes(contextPath)) {
-            keyPosition = line.range.end;
-            break;
+          if (line.text.includes(`target`)) {
+            const targetPosition = line.range.end;
+            const completeUrlText = ` Complete URL: ${completeUrl}${contextPath}`;
+            const decoration = {
+              range: new vscode.Range(targetPosition, targetPosition),
+              renderOptions: { after: { contentText: completeUrlText } },
+            };
+            decorations.push(decoration);
           }
-        }
-
-        // 如果找到了 key 的位置，则添加装饰器以描述风格展示完整的请求地址
-        if (keyPosition) {
-          const completeUrlText = `Complete URL: ${completeUrl}${contextPath}`;
-          const decoration = {
-            range: new vscode.Range(
-              new vscode.Position(keyPosition.line, 0),
-              new vscode.Position(keyPosition.line, 0)
-            ),
-            renderOptions: { after: { contentText: completeUrlText } },
-          };
-          decorations.push(decoration);
         }
       }
     }
