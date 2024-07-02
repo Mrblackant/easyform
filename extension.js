@@ -10,8 +10,6 @@ function activate(context) {
       margin: "10px",
       color: "#848484",
       fontStyle: "italic",
-      isWholeLine: true,
-      whiteSpace: "pre",
     },
   });
 
@@ -70,11 +68,21 @@ function activate(context) {
           // if (line.text.includes("target") && line.text.includes(contextPath)) {
           if (line.text.includes(changeContextPath)) {
             const targetIndex = line.text.indexOf(changeContextPath);
+            console.log("line.range", line.range.end.character);
+
+            // 确定展示描述的位置
+            const range = new vscode.Range(
+              i,
+              line.range.end.character,
+              i,
+              line.range.end.character
+            );
+            // console.log("range", range);
             const targetPosition = new vscode.Position(i, targetIndex);
 
             const completeUrlText = `实际请求地址: ${completeUrl}`;
             const decoration = {
-              range: new vscode.Range(targetPosition, targetPosition),
+              range: range,
               renderOptions: { after: { contentText: completeUrlText } },
             };
             decorations.push(decoration);
