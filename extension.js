@@ -3,8 +3,6 @@ const fs = require("fs");
 const path = require("path");
 
 function activate(context) {
-  let proxyConfig = {};
-
   // 定义装饰器类型
   const decorationType = vscode.window.createTextEditorDecorationType({
     after: {
@@ -14,7 +12,9 @@ function activate(context) {
     },
   });
 
-  // 读取和解析 vue.config.js 中的 proxy 配置
+  let proxyConfig = {};
+
+  // 读取并解析 vue.config.js 中的 proxy 配置
   function readProxyConfig() {
     const workspaceFolders = vscode.workspace.workspaceFolders;
     if (workspaceFolders) {
@@ -43,7 +43,6 @@ function activate(context) {
     const document = activeEditor.document;
     const decorations = [];
 
-    // 遍历每项 proxy 配置
     for (const contextPath in proxyConfig) {
       const proxyOptions = proxyConfig[contextPath];
       let completeUrl = "";
@@ -55,17 +54,23 @@ function activate(context) {
       }
 
       if (completeUrl) {
-        // 查找每项配置的 target 属性的位置
+        const contextPaths = Array.isArray(contextPath)
+          ? contextPath
+          : [contextPath];
+
         for (let i = 0; i < document.lineCount; i++) {
           const line = document.lineAt(i);
-          if (line.text.includes(`target`)) {
+          if (line.text.includes("target")) {
             const targetPosition = line.range.end;
-            const completeUrlText = ` Complete URL: ${completeUrl}${contextPath}`;
-            const decoration = {
-              range: new vscode.Range(targetPosition, targetPosition),
-              renderOptions: { after: { contentText: completeUrlText } },
-            };
-            decorations.push(decoration);
+            contextPaths.forEach((contextPathItem) => {
+              const completeUrlText = ` Complete URL: ${completeUrl}${contextPathItem}`;
+              const decoration = {
+                range: new vscode.Range(targetPosition, targetPosition),
+                renderOptions: { after: { contentText: completeUrlText } },
+              };
+              decorations.push(decoration);
+            });
+            break;
           }
         }
       }
@@ -118,6 +123,9 @@ function activate(context) {
 
   context.subscriptions.push(watcher);
   context.subscriptions.push(decorationType);
+
+  // 初始化时立即展示完整的请求地址
+  readProxyConfig();
 }
 
 function deactivate() {}
