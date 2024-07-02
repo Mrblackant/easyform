@@ -10,6 +10,8 @@ function activate(context) {
       margin: "10px",
       color: "#848484",
       fontStyle: "italic",
+      isWholeLine: true,
+      whiteSpace: "pre",
     },
   });
 
@@ -52,19 +54,22 @@ function activate(context) {
     const document = activeEditor.document;
     const decorations = [];
     // console.log("proxyConfig", proxyConfig);
+    // console.log("proxyConfig2", Object.keys(proxyConfig));
     for (const contextPath in proxyConfig) {
       const proxyOptions = proxyConfig[contextPath];
       const completeUrl = getCompleteUrl(contextPath, proxyOptions);
       // console.log("proxyOptions", proxyOptions);
-      console.log("completeUrl", contextPath);
+      // console.log("completeUrl", contextPath);
 
       if (completeUrl) {
         for (let i = 0; i < document.lineCount; i++) {
           const line = document.lineAt(i);
           // console.log("line", line.text);
-          let ttt = line.text;
-          if (line.text.includes("target") && line.text.includes(contextPath)) {
-            const targetIndex = line.text.indexOf("target");
+          let changeContextPath = `"${contextPath}": {`;
+          // console.log("changeContextPath", changeContextPath);
+          // if (line.text.includes("target") && line.text.includes(contextPath)) {
+          if (line.text.includes(changeContextPath)) {
+            const targetIndex = line.text.indexOf(changeContextPath);
             const targetPosition = new vscode.Position(i, targetIndex);
 
             const completeUrlText = `实际请求地址: ${completeUrl}`;
