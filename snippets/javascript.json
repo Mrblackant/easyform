@@ -1,7 +1,10 @@
 {
-  "": {
+  "console.log": {
     "prefix": "clg",
-    "body": ["console.log($1);$0"],
-    "description": "按回车补全console.log"
+    "body": ["console.log($1);$0"]
+  },
+  "console+JSON.parse": {
+    "prefix": "clgj",
+    "body": ["console.log(JSON.parse(JSON.stringify($1)));$0"]
   }
 }

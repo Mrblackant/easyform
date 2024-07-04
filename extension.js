@@ -31,6 +31,29 @@ function activate(context) {
             position
           ); // 设置光标位置
           return [completionItem];
+        } else if (linePrefix.includes("clgj")) {
+          return [
+            new vscode.CompletionItem(
+              "console.log(JSON.parse(JSON.stringify()))",
+              vscode.CompletionItemKind.Snippet
+            ),
+          ];
+          // // 创建完成项目
+          // const completionItem = new vscode.CompletionItem(
+          //   "console.log()",
+          //   vscode.CompletionItemKind.Method
+          // );
+          // completionItem.insertText = new vscode.SnippetString(
+          //   "console.log($1);$0"
+          // );
+          // completionItem.documentation = new vscode.MarkdownString(
+          //   "Inserts console.log() statement with cursor inside parentheses"
+          // );
+          // completionItem.range = new vscode.Range(
+          //   position.translate(0, -3),
+          //   position
+          // ); // 设置光标位置
+          // return [completionItem];
         }
         return [];
       },
