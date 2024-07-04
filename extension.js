@@ -3,12 +3,10 @@ const vscode = require("vscode");
 /**
  * @param {vscode.ExtensionContext} context
  */
-console.log("111111111");
 function activate(context) {
-  console.log("111111111");
   let disposable = vscode.commands.registerCommand(
     "mockform.generateFormInitialValues",
-    function () {
+    async function () {
       const editor = vscode.window.activeTextEditor;
       if (editor) {
         const document = editor.document;
@@ -17,7 +15,7 @@ function activate(context) {
 
         // 使用正则表达式解析表单代码并生成初始值
         const formRegex = /:model="(\w+)"/;
-        const vModelRegex = /v-model="\w+\.(\w+)"/g;
+        const vModelRegex = /<(el-\w+)[^>]*v-model="\w+\.(\w+)"/g;
 
         const formMatch = formRegex.exec(selectedText);
         if (!formMatch) {
@@ -29,19 +27,69 @@ function activate(context) {
         let match;
         const formFields = [];
         while ((match = vModelRegex.exec(selectedText)) !== null) {
-          formFields.push(match[1]);
+          const componentType = match[1];
+          const fieldName = match[2];
+          let initialValue;
+
+          switch (componentType) {
+            case "el-radio":
+            case "el-radio-group":
+              initialValue = "''";
+              break;
+            case "el-checkbox":
+            case "el-checkbox-group":
+              initialValue = "[]";
+              break;
+            case "el-input":
+              initialValue = "''";
+              break;
+            case "el-input-number":
+              initialValue = "0";
+              break;
+            case "el-select":
+              initialValue = "''";
+              break;
+            case "el-cascader":
+              initialValue = "[]";
+              break;
+            case "el-switch":
+              initialValue = "false";
+              break;
+            case "el-slider":
+              initialValue = "0";
+              break;
+            case "el-time-picker":
+              initialValue = "''";
+              break;
+            case "el-date-picker":
+            case "el-date-time-picker":
+              initialValue = "''";
+              break;
+            case "el-upload":
+              initialValue = "[]";
+              break;
+            case "el-rate":
+              initialValue = "0";
+              break;
+            case "el-color-picker":
+              initialValue = "''";
+              break;
+            case "el-transfer":
+              initialValue = "[]";
+              break;
+            default:
+              initialValue = "''";
+          }
+
+          formFields.push({ fieldName, initialValue });
         }
 
         if (formFields.length > 0) {
           const formInitialValues = `${formName}: {\n${formFields
-            .map((field) => `  ${field}: ''`)
+            .map((field) => `  ${field.fieldName}: ${field.initialValue}`)
             .join(",\n")}\n}`;
-          editor.edit((editBuilder) => {
-            editBuilder.insert(
-              new vscode.Position(editor.selection.start.line, 0),
-              formInitialValues + "\n"
-            );
-          });
+          await vscode.env.clipboard.writeText(formInitialValues);
+          vscode.window.showInformationMessage("表单初始值已复制到剪贴板");
         } else {
           vscode.window.showErrorMessage("未找到表单项的v-model绑定属性");
         }
