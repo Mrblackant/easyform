@@ -14,7 +14,7 @@
     "commands": [
       {
         "command": "mockform.generateFormInitialValues",
-        "title": "Generate Form Initial Values"
+        "title": "生成form表单初始配置"
       }
     ]
   },
