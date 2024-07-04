@@ -1,66 +1,57 @@
 const vscode = require("vscode");
 
+/**
+ * @param {vscode.ExtensionContext} context
+ */
+console.log("111111111");
 function activate(context) {
-  console.log(
-    'Congratulations, your extension "console-log-snippet" is now active!'
-  );
+  console.log("111111111");
+  let disposable = vscode.commands.registerCommand(
+    "mockform.generateFormInitialValues",
+    function () {
+      const editor = vscode.window.activeTextEditor;
+      if (editor) {
+        const document = editor.document;
+        const selection = editor.selection;
+        const selectedText = document.getText(selection);
 
-  // 注册代码片段提供程序
-  context.subscriptions.push(
-    vscode.languages.registerCompletionItemProvider("*", {
-      provideCompletionItems(document, position, token, context) {
-        // 获取当前行的文本
-        const linePrefix = document
-          .lineAt(position)
-          .text.substr(0, position.character);
-        // 检查当前行的文本，包括在当前位置之前的字符
-        if (linePrefix.includes("clg")) {
-          // 创建完成项目
-          const completionItem = new vscode.CompletionItem(
-            "console.log()",
-            vscode.CompletionItemKind.Method
-          );
-          completionItem.insertText = new vscode.SnippetString(
-            "console.log($1);$0"
-          );
-          completionItem.documentation = new vscode.MarkdownString(
-            "Inserts console.log() statement with cursor inside parentheses"
-          );
-          completionItem.range = new vscode.Range(
-            position.translate(0, -3),
-            position
-          ); // 设置光标位置
-          return [completionItem];
-        } else if (linePrefix.includes("clgj")) {
-          return [
-            new vscode.CompletionItem(
-              "console.log(JSON.parse(JSON.stringify()))",
-              vscode.CompletionItemKind.Snippet
-            ),
-          ];
-          // // 创建完成项目
-          // const completionItem = new vscode.CompletionItem(
-          //   "console.log()",
-          //   vscode.CompletionItemKind.Method
-          // );
-          // completionItem.insertText = new vscode.SnippetString(
-          //   "console.log($1);$0"
-          // );
-          // completionItem.documentation = new vscode.MarkdownString(
-          //   "Inserts console.log() statement with cursor inside parentheses"
-          // );
-          // completionItem.range = new vscode.Range(
-          //   position.translate(0, -3),
-          //   position
-          // ); // 设置光标位置
-          // return [completionItem];
+        // 使用正则表达式解析表单代码并生成初始值
+        const formRegex = /:model="(\w+)"/;
+        const vModelRegex = /v-model="\w+\.(\w+)"/g;
+
+        const formMatch = formRegex.exec(selectedText);
+        if (!formMatch) {
+          vscode.window.showErrorMessage("未找到表单的:model属性");
+          return;
         }
-        return [];
-      },
-    })
-  );
-}
 
-module.exports = {
-  activate,
-};
+        const formName = formMatch[1];
+        let match;
+        const formFields = [];
+        while ((match = vModelRegex.exec(selectedText)) !== null) {
+          formFields.push(match[1]);
+        }
+
+        if (formFields.length > 0) {
+          const formInitialValues = `${formName}: {\n${formFields
+            .map((field) => `  ${field}: ''`)
+            .join(",\n")}\n}`;
+          editor.edit((editBuilder) => {
+            editBuilder.insert(
+              new vscode.Position(editor.selection.start.line, 0),
+              formInitialValues + "\n"
+            );
+          });
+        } else {
+          vscode.window.showErrorMessage("未找到表单项的v-model绑定属性");
+        }
+      }
+    }
+  );
+
+  context.subscriptions.push(disposable);
+}
+exports.activate = activate;
+
+function deactivate() {}
+exports.deactivate = deactivate;

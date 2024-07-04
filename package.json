@@ -1,72 +1,33 @@
 {
-  "name": "console-log-snippet",
-  "displayName": "Console Log Snippet",
-  "description": "A VS Code extension that auto-completes console.log() when typing clg.",
+  "name": "mockform",
+  "displayName": "Mock Form",
+  "description": "A VS Code extension to generate form initial values",
   "version": "0.0.1",
-  "publisher": "your_publisher_name",
   "engines": {
     "vscode": "^1.60.0"
   },
-  "categories": [
-    "Other"
+  "activationEvents": [
+    "onCommand:mockform.generateFormInitialValues"
   ],
+  "main": "./extension.js",
   "contributes": {
-    "snippets": [
+    "commands": [
       {
-        "language": "javascript",
-        "path": "./snippets/javascript.json"
-      }
-    ],
-    "languages": [
-      {
-        "id": "javascript",
-        "extensions": [
-          ".js",
-          ".jsx"
-        ],
-        "aliases": [
-          "JavaScript",
-          "javascript"
-        ],
-        "configuration": "./language-configuration.json"
-      },
-      {
-        "id": "typescript",
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ],
-        "aliases": [
-          "TypeScript",
-          "typescript"
-        ],
-        "configuration": "./language-configuration.json"
+        "command": "mockform.generateFormInitialValues",
+        "title": "Generate Form Initial Values"
       }
     ]
   },
-  "activationEvents": [
-    "onLanguage:javascript",
-    "onLanguage:typescript",
-    "onCommand:extension.consoleLogSnippet"
-  ],
-  "main": "./extension.js",
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "lint": "eslint .",
+    "test": "node ./test/runTest.js"
   },
   "devDependencies": {
-    "@types/node": "^x.x.x",
-    "typescript": "^x.x.x",
-    "vscode": "^1.60.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "your_repository_url"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "your_issues_url"
-  },
-  "homepage": "your_homepage_url"
+    "@types/vscode": "^1.60.0",
+    "@types/glob": "^7.1.3",
+    "eslint": "^7.32.0",
+    "glob": "^7.1.6",
+    "mocha": "^8.4.0",
+    "vscode-test": "^1.6.0"
+  }
 }
