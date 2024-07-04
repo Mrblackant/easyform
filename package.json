@@ -1,38 +1,72 @@
 {
-  "name": "vue-proxy-helper",
-  "displayName": "Vue Proxy Helper",
-  "description": "A VSCode extension to help with Vue proxy configuration.",
+  "name": "console-log-snippet",
+  "displayName": "Console Log Snippet",
+  "description": "A VS Code extension that auto-completes console.log() when typing clg.",
   "version": "0.0.1",
-  "publisher": "your-name",
+  "publisher": "your_publisher_name",
   "engines": {
-    "vscode": "^1.50.0"
+    "vscode": "^1.60.0"
   },
   "categories": [
     "Other"
   ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "javascript",
+        "path": "./snippets/javascript.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "javascript",
+        "extensions": [
+          ".js",
+          ".jsx"
+        ],
+        "aliases": [
+          "JavaScript",
+          "javascript"
+        ],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "typescript",
+        "extensions": [
+          ".ts",
+          ".tsx"
+        ],
+        "aliases": [
+          "TypeScript",
+          "typescript"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ]
+  },
   "activationEvents": [
     "onLanguage:javascript",
     "onLanguage:typescript",
-    "onLanguage:javascriptreact",
-    "onLanguage:typescriptreact"
+    "onCommand:extension.consoleLogSnippet"
   ],
   "main": "./extension.js",
-  "contributes": {
-    "commands": []
-  },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
-    "@types/node": "^14.14.6",
-    "@types/vscode": "^1.50.0",
-    "eslint": "^7.14.0",
-    "typescript": "^4.0.3",
-    "vscode-test": "^1.4.0"
-  }
+    "@types/node": "^x.x.x",
+    "typescript": "^x.x.x",
+    "vscode": "^1.60.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "your_repository_url"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "your_issues_url"
+  },
+  "homepage": "your_homepage_url"
 }

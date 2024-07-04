@@ -1,0 +1,7 @@
+{
+  "": {
+    "prefix": "clg",
+    "body": ["console.log($1);$0"],
+    "description": "按回车补全console.log"
+  }
+}
