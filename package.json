@@ -7,13 +7,13 @@
     "vscode": "^1.60.0"
   },
   "activationEvents": [
-    "onCommand:mockform.generateFormInitialValues"
+    "onCommand:elform"
   ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "mockform.generateFormInitialValues",
+        "command": "elform",
         "title": "生成form表单初始配置"
       }
     ]
