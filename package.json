@@ -1,72 +1,38 @@
 {
-  "name": "console-log-snippet",
-  "displayName": "Console Log Snippet",
-  "description": "A VS Code extension that auto-completes console.log() when typing clg.",
+  "name": "clg-autocomplete",
+  "displayName": "CLG Autocomplete",
+  "description": "An extension to autocomplete console.log statements",
   "version": "0.0.1",
-  "publisher": "your_publisher_name",
+  "publisher": "your-publisher-name",
   "engines": {
     "vscode": "^1.60.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "contributes": {
-    "snippets": [
-      {
-        "language": "javascript",
-        "path": "./snippets/javascript.json"
-      }
-    ],
-    "languages": [
-      {
-        "id": "javascript",
-        "extensions": [
-          ".js",
-          ".jsx"
-        ],
-        "aliases": [
-          "JavaScript",
-          "javascript"
-        ],
-        "configuration": "./language-configuration.json"
-      },
-      {
-        "id": "typescript",
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ],
-        "aliases": [
-          "TypeScript",
-          "typescript"
-        ],
-        "configuration": "./language-configuration.json"
-      }
-    ]
   },
   "activationEvents": [
     "onLanguage:javascript",
     "onLanguage:typescript",
-    "onCommand:extension.consoleLogSnippet"
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact"
   ],
   "main": "./extension.js",
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
-  },
-  "devDependencies": {
-    "@types/node": "^x.x.x",
-    "typescript": "^x.x.x",
-    "vscode": "^1.60.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "your_repository_url"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "your_issues_url"
-  },
-  "homepage": "your_homepage_url"
+  "contributes": {
+    "languages": [
+      {
+        "id": "javascript",
+        "aliases": [
+          "JavaScript",
+          "javascript",
+          "js"
+        ],
+        "extensions": [
+          ".js",
+          ".es6",
+          ".jsx",
+          ".mjs",
+          ".cjs",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    ]
+  }
 }
