@@ -8,6 +8,9 @@
   "engines": {
     "vscode": "^1.60.0"
   },
+  "activationEvents": [
+    "onCommand:elform"
+  ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
