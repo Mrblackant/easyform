@@ -2,6 +2,10 @@
 
 快速生成 elementui 表单配置项插件
 
+## 如何安装
+
+- vscode 拓展市场搜索`easyform`,安装
+
 ## 如何使用
 
 - 选中 el-form 区域,ctrl+shfit+p,输入 easyform,回车后结果会复制到剪贴板
