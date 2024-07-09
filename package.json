@@ -1,9 +1,9 @@
 {
-  "name": "easyform",
+  "name": "mockform",
   "displayName": "easyform",
   "description": "根据elementUi表单，动态生成form初始化配置",
   "publisher": "mrant",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "icon": "easyform.png",
   "engines": {
     "vscode": "^1.60.0"
@@ -24,6 +24,7 @@
     "lint": "eslint .",
     "test": "node ./test/runTest.js"
   },
+  "repository": "https://github.com/Mrblackant/easyform",
   "devDependencies": {
     "@types/vscode": "^1.60.0",
     "@types/glob": "^7.1.3",
