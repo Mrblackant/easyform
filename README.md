@@ -166,4 +166,6 @@ The following is the extensions project complete project, for developers to refe
 
 ## Reference
 
-- [vscode 官方 API](https://code.visualstudio.com/api/get-started/your-first-extension)
+- [vscode 插件开发，官方 API](https://code.visualstudio.com/api/get-started/your-first-extension)
+- [vscode 插件开发，中文 API](https://liiked.github.io/VS-Code-Extension-Doc-ZH/#/get-started/your-first-extension)
+- [github 参考:markdownexample](https://github.com/crazy-luke/markdownexample)
