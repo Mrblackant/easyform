@@ -3,7 +3,7 @@
   "displayName": "easyform",
   "description": "根据elementUi表单，动态生成form初始化配置",
   "publisher": "mrant",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "icon": "easyform.png",
   "engines": {
     "vscode": "^1.60.0"
