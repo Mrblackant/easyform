@@ -1,5 +1,5 @@
 {
-  "name": "mockform",
+  "name": "easyform",
   "displayName": "easyform",
   "description": "根据elementUi表单，动态生成form初始化配置",
   "publisher": "mrant",
@@ -9,13 +9,13 @@
     "vscode": "^1.60.0"
   },
   "activationEvents": [
-    "onCommand:elform"
+    "onCommand:easyform"
   ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "elform",
+        "command": "easyform",
         "title": "生成form表单初始配置"
       }
     ]
