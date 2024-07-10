@@ -72,6 +72,9 @@ The following is the extensions project complete project, for developers to refe
 - `contributes` 字段设置命令 `easyform`
 
   ```
+  //contributes 配置项是整个插件的贡献点，表明这个插件有什么功能。
+  commands: 命令，通过 control + shift + p 打开命令窗口进行输入来执行命令
+
   "commands": [
       {
         "command": "easyform",
@@ -167,6 +170,15 @@ The following is the extensions project complete project, for developers to refe
 
 - 执行发布
   `vsce publish`
+
+## 涉及命令
+
+- 安装 yo generator-code
+  `npm install -g yo generator-code`
+- 安装 vsce
+  `npm install -g vsce`
+- 打包
+  `vsce package`
 
 ## Reference
 
