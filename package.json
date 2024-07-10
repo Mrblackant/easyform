@@ -1,5 +1,5 @@
 {
-  "name": "mockform",
+  "name": "easyform",
   "displayName": "easyform",
   "description": "根据elementUi表单，动态生成form初始化配置",
   "publisher": "mrant",
