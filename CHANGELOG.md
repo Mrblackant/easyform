@@ -1,9 +1,9 @@
 # Change Log
 
-All notable changes to the "realproxyaddress" extension will be documented in this file.
+## [0.0.4] - 2024-07-11
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+- 新增右键快捷命令功能
 
-## [Unreleased]
+## [0.0.1] - 2024-07-10
 
-- Initial release
+- 初始版本发布
