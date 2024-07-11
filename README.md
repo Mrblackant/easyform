@@ -10,7 +10,7 @@
 
 - 选中 el-form 区域,ctrl+shfit+p,输入 easyform,回车后结果会复制到剪贴板
 
-![alt desc1](https://i0.hdslb.com/bfs/article/7bac2155fd4055b06ac100229eb3867f424199394.gif)
+![alt desc1](https://i0.hdslb.com/bfs/article/2aba14834b9759407ec16679271c6f5a424199394.gif)
 
 ##
 
