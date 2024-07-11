@@ -3,7 +3,7 @@
   "displayName": "easyform",
   "description": "根据elementUi表单，动态生成form初始化配置",
   "publisher": "mrant",
-  "version": "0.0.5",
+  "version": "0.0.3",
   "icon": "easyform.png",
   "engines": {
     "vscode": "^1.60.0"
@@ -18,7 +18,15 @@
         "command": "easyform",
         "title": "生成form表单初始配置"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "easyform",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "lint": "eslint .",

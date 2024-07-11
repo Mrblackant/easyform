@@ -59,7 +59,7 @@ function activate(context) {
               initialValue = "0";
               break;
             case "el-select":
-              initialValue = "null";
+              initialValue = "''";
               break;
             case "el-cascader":
               initialValue = "[]";
